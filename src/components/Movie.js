@@ -3,12 +3,13 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { UserAuth } from '../Context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
-import { async } from '@firebase/util';
+import { useNavigate } from 'react-router-dom';
 
-const Movie = ({ movie }) => {
+const Movie = ({ movie, setSelectedMovie }) => {
     const [like, setLike] = useState(false);
     const [saved, setSaved] = useState(false);
     const { user } = UserAuth();
+    const navigate = useNavigate();
 
     const movieID = doc(db, 'users', `${user?.email}`);
 
@@ -28,6 +29,11 @@ const Movie = ({ movie }) => {
         }
     }
 
+    const showMovieInfo = (movie) => {
+        setSelectedMovie(movie);
+        navigate('/movieinfo');
+    }
+
     return (
         <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
             <img
@@ -39,6 +45,7 @@ const Movie = ({ movie }) => {
                 <p onClick={saveShow}>
                     {like ? <FaHeart className='absolute top-4 left-4 text-gray-300' /> : <FaRegHeart className='absolute top-4 left-4 text-gray-300' />}
                 </p>
+                <button onClick={() => showMovieInfo(movie)} className='absolute bottom-5 w-20 left-0 right-0 my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Info</button>
             </div>
         </div>
     )

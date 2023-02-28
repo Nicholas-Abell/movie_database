@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Movie from './Movie';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
-const Row = ({ title, url, rowId }) => {
+const Row = ({ title, url, rowId, setSelectedMovie }) => {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const Row = ({ title, url, rowId }) => {
                     {
                         movies.map((movie, id) => {
                             return (
-                                <Movie key={id} movie={movie} />
+                                <Movie setSelectedMovie={setSelectedMovie} key={id} movie={movie} />
                             )
                         })
                     }

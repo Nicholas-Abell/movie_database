@@ -16,7 +16,6 @@ const Navbar = () => {
     }
   }
 
-  console.log(user);
   return (
     <div className='flex items-center justify-between p-4 z-[100] w-full absolute'>
       <Link to='/'>

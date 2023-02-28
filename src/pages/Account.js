@@ -1,8 +1,7 @@
 import React from 'react';
 import SavedShows from '../components/SavedShows';
 
-
-const Account = () => {
+const Account = ({ setSelectedMovie }) => {
     return (
         <>
             <div className='w-full'>
@@ -10,7 +9,7 @@ const Account = () => {
                     <h1 className='text-3xl md:text-5xl font-bold'></h1>
                 </div>
             </div>
-            <SavedShows />
+            <SavedShows setSelectedMovie={setSelectedMovie} />
         </>
     )
 }

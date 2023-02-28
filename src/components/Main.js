@@ -10,11 +10,7 @@ const Main = () => {
     axios.get(request.requestPopular).then((res) => {
       setMovies(res.data.results);
     });
-    console.log(movies);
   }, []);
-
-  console.log(movie);
-
 
   const truncateString = (str, num) => {
     if (str?.length > num) {
