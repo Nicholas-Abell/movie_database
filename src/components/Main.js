@@ -11,6 +11,7 @@ const Main = ({ setSelectedMovie }) => {
   useEffect(() => {
     axios.get(request.requestPopular).then((res) => {
       setMovies(res.data.results);
+      console.log(res.data.results);
     });
   }, []);
 
@@ -27,6 +28,11 @@ const Main = ({ setSelectedMovie }) => {
     navigate('/movieinfo');
   }
 
+  const showMovieTrailer = (movie) => {
+    setSelectedMovie(movie);
+    navigate('/trailer');
+  }
+
   return (
     <div className='w-full h-[550px]'>
       <div className='w-full h-full'>
@@ -39,7 +45,7 @@ const Main = ({ setSelectedMovie }) => {
         <div className='absolute w-full top-[20%] p-4 md:p-8'>
           <h1 className='text-3xl md:text-5xl'>{movie?.title}</h1>
           <div className='my-4'>
-            <button onClick={() => navigate('/trailer')} className='border bg-gray-300 border-gray-300 py-2 px-5 text-black'>Play</button>
+            <button onClick={() => showMovieTrailer(movie)} className='border bg-gray-300 border-gray-300 py-2 px-5 text-black'>Play</button>
             <button onClick={() => showMovieInfo(movie)} className='border bg-gray-300 border-gray-300 py-2 px-5 ml-4 text-black '>Info</button>
           </div>
           <p className='text-gray-400 text-sm'>Released: {movie?.release_date}</p>

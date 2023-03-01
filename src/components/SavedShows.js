@@ -18,6 +18,11 @@ const SavedShows = ({ setSelectedMovie }) => {
         console.log('from acoount: ' + movie)
     }
 
+    const showMovieTrailer = (movie) => {
+        setSelectedMovie(movie);
+        navigate('/trailer');
+    }
+
     const slideLeft = () => {
         let slider = document.getElementById('slider');
         slider.scrollLeft = slider.scrollLeft - 500;
@@ -61,7 +66,10 @@ const SavedShows = ({ setSelectedMovie }) => {
                                     <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100'>
                                         <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full'>{movie?.title}</p>
                                         <p onClick={() => deleteMovie(movie.id)} className='absolute top-4 left-4 hover:bg-slate-500'><AiOutlineClose /></p>
-                                        <button onClick={() => showMovieInfo(movie)} className='absolute bottom-2 w-20 left-0 right-0 my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Info</button>
+                                        <div className='flex justify-center items-center absolute bottom-5 left-0 right-0 w-full'>
+                                            <button onClick={() => showMovieTrailer(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Play</button>
+                                            <button onClick={() => showMovieInfo(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Info</button>
+                                        </div>
                                     </div>
                                 </div>
                             )

@@ -25,7 +25,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/account' element={<ProtectedRoute><Account setSelectedMovie={setSelectedMovie} /></ProtectedRoute>} />
-          <Route path='/trailer' element={<Trailer />} />
+          <Route path='/trailer' element={<Trailer selectedMovie={selectedMovie} />} />
         </Routes>
       </AuthContextProvider>
     </>

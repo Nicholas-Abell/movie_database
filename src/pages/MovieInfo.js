@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const MovieInfo = ({ selectedMovie }) => {
+    const navigate = useNavigate();
+
     return (
         <>
             <div className='w-full h-screen overflow-hidden' style={{ WebkitOverflowScrolling: 'hidden' }}>
@@ -18,7 +21,7 @@ const MovieInfo = ({ selectedMovie }) => {
                     <div className='absolute w-full top-[20%] p-4 md:p-8'>
                         <h1 className='text-3xl md:text-5xl'>{selectedMovie?.title}</h1>
                         <div className='my-4'>
-                            <button className='border bg-gray-300 border-gray-300 py-2 px-5 text-black'>Play</button>
+                            <button onClick={() => navigate('/trailer')} className='border bg-gray-300 border-gray-300 py-2 px-5 text-black'>Play</button>
                             <button className='border bg-gray-300 border-gray-300 py-2 px-5 ml-4 text-black '>Watch Later</button>
                         </div>
                         <p className='text-gray-400 text-sm'>Released: {selectedMovie?.release_date}</p>

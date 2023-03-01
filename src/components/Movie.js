@@ -36,6 +36,11 @@ const Movie = ({ movie, setSelectedMovie }) => {
         navigate('/movieinfo');
     }
 
+    const showMovieTrailer = (movie) => {
+        setSelectedMovie(movie);
+        navigate('/trailer');
+    }
+
     return (
         <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
             <img
@@ -47,7 +52,10 @@ const Movie = ({ movie, setSelectedMovie }) => {
                 <p onClick={saveShow}>
                     {like ? <FaHeart className='absolute top-4 left-4 text-gray-300' /> : <FaRegHeart className='absolute top-4 left-4 text-gray-300' />}
                 </p>
-                <button onClick={() => showMovieInfo(movie)} className='absolute bottom-5 w-20 left-0 right-0 my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Info</button>
+                <div className='flex justify-center items-center absolute bottom-5 left-0 right-0 w-full'>
+                    <button onClick={() => showMovieTrailer(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Play</button>
+                    <button onClick={() => showMovieInfo(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Info</button>
+                </div>
             </div>
         </div>
     )
