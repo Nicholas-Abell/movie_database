@@ -21,7 +21,9 @@ const Movie = ({ movie, setSelectedMovie }) => {
                 savedShows: arrayUnion({
                     id: movie.id,
                     title: movie.title,
-                    img: movie.backdrop_path
+                    img: movie.backdrop_path,
+                    release_date: movie.release_date,
+                    overview: movie.overview
                 })
             })
         } else {

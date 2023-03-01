@@ -9,17 +9,11 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import MovieInfo from './pages/MovieInfo';
 import SignUp from './pages/SignUp';
+import Trailer from './pages/Trailer';
 
 function App() {
 
   const [selectedMovie, setSelectedMovie] = useState();
-
-  const movieInfoContext = createContext();
-
-  useEffect(() => {
-    console.log(selectedMovie);
-    console.log(selectedMovie?.img);
-  }, [selectedMovie])
 
   return (
     <>
@@ -31,6 +25,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/account' element={<ProtectedRoute><Account setSelectedMovie={setSelectedMovie} /></ProtectedRoute>} />
+          <Route path='/trailer' element={<Trailer />} />
         </Routes>
       </AuthContextProvider>
     </>

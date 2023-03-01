@@ -9,7 +9,7 @@ const MovieInfo = ({ selectedMovie }) => {
                     <div className='absolute w-full h-full bg-gradient-to-r from-black'></div>
                     <img
                         className='w-full h-full object-cover object-top'
-                        src={selectedMovie?.backdrop_path !== 'undefined'
+                        src={selectedMovie?.backdrop_path !== undefined
                             ? `https://image.tmdb.org/t/p/original/${selectedMovie?.backdrop_path}`
                             : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
                         }
