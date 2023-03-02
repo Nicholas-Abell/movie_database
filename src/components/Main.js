@@ -10,7 +10,7 @@ import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 
 const Main = ({ setSelectedMovie }) => {
   const [movies, setMovies] = useState([]);
-  const movie = movies[Math.floor(Math.random() * movies.length)];
+  const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
 
   const [like, setLike] = useState(false);
@@ -26,6 +26,13 @@ const Main = ({ setSelectedMovie }) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (movies.length > 0) {
+      const random = Math.floor(Math.random() * movies.length);
+      setMovie(movies[random]);
+      console.log('movie: ' + movie);
+    }
+  }, [movies]);
 
   const saveShow = async () => {
     if (user?.email) {
@@ -64,7 +71,6 @@ const Main = ({ setSelectedMovie }) => {
     navigate('/trailer');
   }
 
-
   return (
     <div className='w-full h-[550px]'>
       <div className='w-full h-full'>
@@ -77,8 +83,8 @@ const Main = ({ setSelectedMovie }) => {
         <div className='absolute w-full top-[20%] p-4 md:p-8'>
           <h1 className='text-3xl md:text-5xl'>{movie?.title}</h1>
           <div className='my-4 flex'>
-            <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm'>{movie?.like ? <AiOutlineCheck /> : <AiOutlinePlus size={25} />}  My List</button>
-            <button onClick={() => showMovieTrailer(movie)} className='border bg-gray-300 border-none w-[100px] h-[50px] text-black flex justify-center font-bold items-center text-xl mx-2 hover:bg-slate-400'><BsFillPlayFill size={30} />Play</button>
+            <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm'>{like ? <AiOutlineCheck /> : <AiOutlinePlus size={25} />}  My List</button>
+            <button onClick={() => showMovieTrailer(movie)} className='rounded bg-gray-300 border-none w-[100px] h-[50px] text-black flex justify-center font-bold items-center text-xl mx-2 hover:bg-slate-400'><BsFillPlayFill size={30} />Play</button>
             <button onClick={() => showMovieInfo(movie)} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col'><AiOutlineInfoCircle size={25} /> Info</button>
           </div>
           <p className='text-gray-400 text-sm'>Released: {movie?.release_date}</p>
