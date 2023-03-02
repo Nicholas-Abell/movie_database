@@ -5,7 +5,7 @@ import { YouTubePlayer } from 'react-video-players';
 const Trailer = ({ selectedMovie }) => {
   const [ytId, setYTID] = useState('');
   const ytkey = process.env.REACT_APP_YOUTUBE_API;
-  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedMovie?.title + 'movie trailer'}&type=video&key=${ytkey}`;
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedMovie?.title + 'movie trailer'}&maxResults=1&type=video&key=${ytkey}`;
 
   useEffect(() => {
     axios.get(url).then((res) => {
@@ -16,23 +16,14 @@ const Trailer = ({ selectedMovie }) => {
 
 
   return (
-    <div>
+    <div className='py-20'>
       {
-        ytId 
-        ? (<div className='h-screen w-full overflow-hidden' style={{border: 'solid red'}}><YouTubePlayer videoId={ytId}/></div> )
-        : null
+        ytId
+          ? (<div className='h-full w-full object-cover'><YouTubePlayer videoId={ytId} /></div>)
+          : null
       }
     </div>
   )
 }
 
 export default Trailer;
-
-// "items": [
-//   {
-//     "kind": "youtube#searchResult",
-//     "etag": "OYwvb8e3-aOmDV0CXnoV8DdCId4",
-//     "id": {
-//       "kind": "youtube#video",
-//       "videoId": "HSNE9tK98i0"   <---------
-//     },
