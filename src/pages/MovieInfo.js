@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const MovieInfo = ({ selectedMovie }) => {
