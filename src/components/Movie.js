@@ -33,12 +33,12 @@ const Movie = ({ movie, setSelectedMovie }) => {
 
     const showMovieInfo = (movie) => {
         setSelectedMovie(movie);
-        navigate('/movieinfo');
+        // navigate('/movieinfo');
     }
 
     const showMovieTrailer = (movie) => {
         setSelectedMovie(movie);
-        navigate('/trailer');
+        // navigate('/trailer');
     }
 
     return (

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AppContext } from '../App';
 import { request } from '../Request';
 import { useNavigate } from 'react-router-dom';
 import { BsFillPlayFill } from 'react-icons/bs';
@@ -8,7 +9,8 @@ import { UserAuth } from '../Context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 
-const Main = ({ setSelectedMovie }) => {
+const Main = () => {
+  const {setSelectedMovie} = useContext(AppContext);
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();

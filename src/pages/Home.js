@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, createContext } from 'react';
+import { AppContext } from '../App';
 import Main from '../components/Main';
 import Row from '../components/Row';
 import { request } from '../Request';
 import InfoOverlay from '../components/InfoOverlay';
 
-const Home = ({ selectedMovie, setSelectedMovie }) => {
+export const OverLayContext = createContext();
 
+const Home = () => {
+  const { selectedMovie, setSelectedMovie } = useContext(AppContext);
   const [isOverlayOpen, setIsOverlayOpen] = useState(true);
 
   useEffect(() => {
@@ -13,13 +16,15 @@ const Home = ({ selectedMovie, setSelectedMovie }) => {
   }, [selectedMovie])
 
   return (
-    <div className='relative'>
-      <Main setSelectedMovie={setSelectedMovie} />
-      <Row title='Trending' url={request.requestPopular} rowId={1} setSelectedMovie={setSelectedMovie} />
-      <Row title='Critic Acclaim' url={request.requestTopRated} rowId={2} setSelectedMovie={setSelectedMovie} />
-      <Row title='Coming Soon' url={request.requestUpComing} rowId={3} setSelectedMovie={setSelectedMovie} />
-      {/* <InfoOverlay selectedMovie={selectedMovie} isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen} /> */}
-    </div>
+    <OverLayContext.Provider value={{ isOverlayOpen, setIsOverlayOpen }}>
+      <div className='relative'>
+        <Main />
+        <Row title='Trending' url={request.requestPopular} rowId={1} setSelectedMovie={setSelectedMovie} />
+        <Row title='Critic Acclaim' url={request.requestTopRated} rowId={2} setSelectedMovie={setSelectedMovie} />
+        <Row title='Coming Soon' url={request.requestUpComing} rowId={3} setSelectedMovie={setSelectedMovie} />
+        <InfoOverlay />
+      </div>
+    </OverLayContext.Provider>
   )
 }
 

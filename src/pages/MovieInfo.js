@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AppContext } from '../App';
 
-const MovieInfo = ({ selectedMovie }) => {
+const MovieInfo = () => {
     const navigate = useNavigate();
+    const { selectedMovie } = useContext(AppContext);
 
     return (
         <>

@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../App';
+import { OverLayContext } from '../pages/Home';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle, AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 
-const InfoOverlay = ({ selectedMovie, isOverlayOpen, setIsOverlayOpen }) => {
+const InfoOverlay = () => {
+    const { selectedMovie } = useContext(AppContext);
+    const { isOverlayOpen, setIsOverlayOpen } = useContext(OverLayContext);
 
     return (
         <div className='w-full absolute z-50 bg-zinc-700 opacity-95 bottom-0 flex flex-col justify-between items-center p-6 overflow-hidden' style={{ borderRadius: '1rem 1rem 0 0', boxSizing: 'border-box', display: (isOverlayOpen ? 'block' : 'none') }}>
             <AiFillCloseCircle onClick={() => setIsOverlayOpen(false)} size={40} className='absolute right-4 top-4 cursor-pointer' />
             <div className='flex'>
                 <img
-                    className='w-full h-full object-cover object-top'
+                    className='w-[80px] h-[120px] object-cover object-top'
                     src={selectedMovie?.backdrop_path !== undefined
                         ? `https://image.tmdb.org/t/p/original/${selectedMovie?.backdrop_path}`
                         : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
@@ -41,4 +45,4 @@ const InfoOverlay = ({ selectedMovie, isOverlayOpen, setIsOverlayOpen }) => {
     )
 }
 
-export default InfoOverlay
+export default InfoOverlay;

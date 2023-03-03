@@ -35,13 +35,16 @@ const SignUp = () => {
                                     className='p-3 my-2 bg-gray-500 rounded'
                                     type='email'
                                     placeholder='...@google.com'
-                                    autoComplete='email' />
+                                    autoComplete='email'
+                                    required />
                                 <input
                                     onChange={(e) => setPassword(e.target.value)}
                                     className='p-3 my-2 bg-gray-500 rounded'
                                     type='password'
                                     placeholder='Password'
-                                    autoComplete='current-password' />
+                                    autoComplete='current-password'
+                                    min={6}
+                                    required />
                                 <button className='bg-red-600 py-3 my-6 rounded font-bold'>Sign Up</button>
                                 <div className='flex justify-between text-gray-600'>
                                     <p><input type='checkbox' className='mr-2' />Remember Me</p>

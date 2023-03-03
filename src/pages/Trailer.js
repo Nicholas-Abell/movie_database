@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../App';
 import axios from 'axios';
 import { YouTubePlayer } from 'react-video-players';
 
-const Trailer = ({ selectedMovie }) => {
+const Trailer = () => {
+  const { selectedMovie } = useContext(AppContext);
   const [ytId, setYTID] = useState('');
   const ytkey = process.env.REACT_APP_YOUTUBE_API;
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedMovie?.title + 'movie trailer'}&maxResults=1&type=video&key=${ytkey}`;

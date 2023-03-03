@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../App';
 import SavedShows from '../components/SavedShows';
 
-const Account = ({ setSelectedMovie }) => {
+const Account = () => {
+    const { setSelectedMovie } = useContext(AppContext);
     return (
         <>
             <div className='w-full'>
