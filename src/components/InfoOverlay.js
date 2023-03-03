@@ -21,10 +21,18 @@ const InfoOverlay = () => {
         navigate('/trailer');
     }
 
+    const truncateString = (str, num) => {
+        if (str?.length > num) {
+            return str.slice(0, num) + '...'
+        } else {
+            return str;
+        }
+    }
+
     return (
-        <div className='w-full fixed z-50 bg-zinc-700 opacity-95 bottom-0 flex flex-col justify-between items-center p-6 overflow-hidden' style={{ borderRadius: '1rem 1rem 0 0', boxSizing: 'border-box', display: (isOverlayOpen ? 'block' : 'none') }}>
+        <div className='w-full h-[60vh] fixed z-50 bg-zinc-700 opacity-95 bottom-0 flex flex-col justify-between items-center p-6' style={{ borderRadius: '1rem 1rem 0 0', boxSizing: 'border-box', display: (isOverlayOpen ? 'block' : 'none') }}>
             <AiFillCloseCircle onClick={() => setIsOverlayOpen(false)} size={40} className='absolute right-4 top-4 cursor-pointer' />
-            <div className='flex justify-start items-center gap-4 py-6'>
+            <div className='flex justify-center items-center gap-4 py-6'>
                 <img
                     className='w-auto h-[240px] object-cover object-top'
                     src={selectedMovie?.backdrop_path !== undefined
@@ -33,15 +41,15 @@ const InfoOverlay = () => {
                     }
                     alt={'movie_main'}
                 />
-                <div className='w-[50%] h-[240px] flex flex-col justify-between'>
+                <div className='w-[50%] h-[240px] flex flex-col text-lg'>
                     <div>
-                        <h1 className='text-lg'>{selectedMovie?.title}</h1>
+                        <h1 className='text-3xl'>{selectedMovie?.title}</h1>
                         <p className='text-sm'>Released: {selectedMovie?.release_date}</p>
                     </div>
-                    <p>{selectedMovie?.overview}</p>
+                    <p className='my-5'>{truncateString(selectedMovie?.overview, 200)}</p>
                 </div>
             </div>
-            <div className='flex justify-around items-center gap-12'>
+            <div className='flex justify-around items-center my-8 gap-12'>
                 <div onClick={playTrailer} className='flex flex-col items-center justify-center cursor-pointer'>
                     <BsFillPlayFill size={50} />
                     <p>Play</p>
