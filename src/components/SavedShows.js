@@ -53,12 +53,11 @@ const SavedShows = ({ setSelectedMovie }) => {
     return (
         <>
             <div className='relative flex items-center group pt-20'>
-                <FaChevronLeft onClick={slideLeft} size={40} className='rounded-full  text-black absolute opacity-50 hover:opacity-100 bg-white cursor-pointer z-10 hidden group-hover:block left-0' />
-                <div className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
+                <div className='w-full h-full relative flex flex-wrap items-center justify-center gap-2'>
                     {
                         movies.map((movie, id) => {
                             return (
-                                <div key={id} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
+                                <div key={id} className='w-[40%] md:w-[30%] cursor-pointer relative rounded overflow-hidden'>
                                     <img
                                         className='w-full h-auto block'
                                         src={`https://image.tmdb.org/t/p/original/${movie?.img}`} alt={movie?.title}
@@ -76,7 +75,6 @@ const SavedShows = ({ setSelectedMovie }) => {
                         })
                     }
                 </div>
-                <FaChevronRight onClick={slideRight} size={40} className='rounded-full text-black absolute opacity-50 hover:opacity-100 bg-white cursor-pointer z-10 hidden group-hover:block right-0' />
             </div>
         </>
     )
