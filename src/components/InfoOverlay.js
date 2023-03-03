@@ -62,7 +62,7 @@ const InfoOverlay = () => {
     }
 
     return (
-        <div className='w-full h-[60vh] fixed z-50 bg-zinc-700 opacity-95 bottom-0 flex flex-col justify-between items-center p-6' style={{ borderRadius: '1rem 1rem 0 0', boxSizing: 'border-box', display: (isOverlayOpen ? 'block' : 'none') }}>
+        <div className='w-full px-3 h-[60vh] fixed z-50 bg-zinc-700 opacity-95 bottom-0 flex flex-col justify-between items-center' style={{ borderRadius: '1rem 1rem 0 0', boxSizing: 'border-box', display: (isOverlayOpen ? 'block' : 'none') }}>
             <AiFillCloseCircle onClick={closeOverlay} size={40} className='absolute right-4 top-4 cursor-pointer hover:text-gray-300' />
             <div className='flex justify-center items-center gap-4 py-6'>
                 <img
@@ -75,10 +75,10 @@ const InfoOverlay = () => {
                 />
                 <div className='w-[80%] sm:w-[60%] h-[240px] flex flex-col text-lg'>
                     <div>
-                        <h1 className='text-3xl'>{selectedMovie?.title}</h1>
+                        <h1 className='text-sm lg:text-3xl'>{selectedMovie?.title}</h1>
                         <p className='text-sm'>Released: {selectedMovie?.release_date}</p>
                     </div>
-                    <p className='my-5'>{truncateString(selectedMovie?.overview, 200)}</p>
+                    <p className='text-sm md:text-lg my-5'>{truncateString(selectedMovie?.overview, 200)}</p>
                 </div>
             </div>
             <div className='flex justify-around items-center my-8 gap-12 border-t-2 border-gray-400 py-2'>
