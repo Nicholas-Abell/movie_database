@@ -9,7 +9,7 @@ export const OverLayContext = createContext();
 
 const Home = () => {
   const { selectedMovie, setSelectedMovie } = useContext(AppContext);
-  const [isOverlayOpen, setIsOverlayOpen] = useState(true);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   useEffect(() => {
     console.log(selectedMovie);

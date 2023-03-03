@@ -1,38 +1,52 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../App';
 import { OverLayContext } from '../pages/Home';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle, AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 const InfoOverlay = () => {
     const { selectedMovie } = useContext(AppContext);
     const { isOverlayOpen, setIsOverlayOpen } = useContext(OverLayContext);
+    const navigate = useNavigate();
+
+    const showInfo = () => {
+        setIsOverlayOpen(false);
+        navigate('/movieinfo');
+    }
+
+    const playTrailer = () => {
+        setIsOverlayOpen(false);
+        navigate('/trailer');
+    }
 
     return (
-        <div className='w-full absolute z-50 bg-zinc-700 opacity-95 bottom-0 flex flex-col justify-between items-center p-6 overflow-hidden' style={{ borderRadius: '1rem 1rem 0 0', boxSizing: 'border-box', display: (isOverlayOpen ? 'block' : 'none') }}>
+        <div className='w-full fixed z-50 bg-zinc-700 opacity-95 bottom-0 flex flex-col justify-between items-center p-6 overflow-hidden' style={{ borderRadius: '1rem 1rem 0 0', boxSizing: 'border-box', display: (isOverlayOpen ? 'block' : 'none') }}>
             <AiFillCloseCircle onClick={() => setIsOverlayOpen(false)} size={40} className='absolute right-4 top-4 cursor-pointer' />
-            <div className='flex'>
+            <div className='flex justify-start items-center gap-4 py-6'>
                 <img
-                    className='w-[80px] h-[120px] object-cover object-top'
+                    className='w-auto h-[240px] object-cover object-top'
                     src={selectedMovie?.backdrop_path !== undefined
-                        ? `https://image.tmdb.org/t/p/original/${selectedMovie?.backdrop_path}`
+                        ? `https://image.tmdb.org/t/p/original/${selectedMovie?.poster_path}`
                         : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
                     }
                     alt={'movie_main'}
                 />
-                <div className='w-[50%]'>
-                    <h1>{selectedMovie?.title}</h1>
-                    <h3>Released: {selectedMovie?.release_date}</h3>
+                <div className='w-[50%] h-[240px] flex flex-col justify-between'>
+                    <div>
+                        <h1 className='text-lg'>{selectedMovie?.title}</h1>
+                        <p className='text-sm'>Released: {selectedMovie?.release_date}</p>
+                    </div>
                     <p>{selectedMovie?.overview}</p>
                 </div>
             </div>
             <div className='flex justify-around items-center gap-12'>
-                <div className='flex flex-col items-center justify-center cursor-pointer'>
+                <div onClick={playTrailer} className='flex flex-col items-center justify-center cursor-pointer'>
                     <BsFillPlayFill size={50} />
                     <p>Play</p>
                 </div>
-                <div className='flex flex-col items-center justify-center cursor-pointer'>
+                <div onClick={showInfo} className='flex flex-col items-center justify-center cursor-pointer'>
                     <AiOutlineInfoCircle size={50} />
                     <p>Info</p>
                 </div>

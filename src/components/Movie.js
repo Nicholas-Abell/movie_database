@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { UserAuth } from '../Context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
+import { OverLayContext } from '../pages/Home';
 import { useNavigate } from 'react-router-dom';
 
 const Movie = ({ movie, setSelectedMovie }) => {
     const [like, setLike] = useState(false);
     const [saved, setSaved] = useState(false);
     const { user } = UserAuth();
+    const { setIsOverlayOpen } = useContext(OverLayContext);
     const navigate = useNavigate();
 
     const movieID = doc(db, 'users', `${user?.email}`);
@@ -33,12 +35,12 @@ const Movie = ({ movie, setSelectedMovie }) => {
 
     const showMovieInfo = (movie) => {
         setSelectedMovie(movie);
-        // navigate('/movieinfo');
+        setIsOverlayOpen(true);
     }
 
     const showMovieTrailer = (movie) => {
         setSelectedMovie(movie);
-        // navigate('/trailer');
+        navigate('/trailer');
     }
 
     return (
