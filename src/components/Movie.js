@@ -36,15 +36,11 @@ const Movie = ({ movie, setSelectedMovie }) => {
     const showMovieInfo = (movie) => {
         setSelectedMovie(movie);
         setIsOverlayOpen(true);
-    }
-
-    const showMovieTrailer = (movie) => {
-        setSelectedMovie(movie);
-        navigate('/trailer');
+        document.body.style.overflow = 'hidden';
     }
 
     return (
-        <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
+        <div onClick={() => showMovieInfo(movie)} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
             <img
                 className='w-full h-auto block'
                 src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt={movie?.title}
@@ -52,12 +48,8 @@ const Movie = ({ movie, setSelectedMovie }) => {
             <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100'>
                 <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full'>{movie?.title}</p>
                 <p onClick={saveShow}>
-                    {like ? <FaHeart className='absolute top-4 left-4 text-gray-300' /> : <FaRegHeart className='absolute top-4 left-4 text-gray-300' />}
+                    {like ? <FaHeart className='absolute top-4 left-4 text-gray-300 z-20 lg:block' /> : <FaRegHeart className='absolute top-4 left-4 text-gray-300 z-20 hidden lg:block' />}
                 </p>
-                <div className='flex justify-center items-center absolute bottom-5 left-0 right-0 w-full'>
-                    <button onClick={() => showMovieTrailer(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Play</button>
-                    <button onClick={() => showMovieInfo(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Info</button>
-                </div>
             </div>
         </div>
     )

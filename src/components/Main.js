@@ -10,7 +10,7 @@ import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 
 const Main = () => {
-  const {setSelectedMovie} = useContext(AppContext);
+  const { setSelectedMovie } = useContext(AppContext);
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
@@ -54,7 +54,6 @@ const Main = () => {
     }
   }
 
-
   const truncateString = (str, num) => {
     if (str?.length > num) {
       return str.slice(0, num) + '...'
@@ -85,9 +84,9 @@ const Main = () => {
         <div className='absolute w-full top-[20%] p-4 md:p-8'>
           <h1 className='text-3xl md:text-5xl'>{movie?.title}</h1>
           <div className='my-4 flex'>
-            <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm'>{like ? <AiOutlineCheck /> : <AiOutlinePlus size={25} />}  My List</button>
+            <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm hover:text-slate-400'>{like ? <AiOutlineCheck /> : <AiOutlinePlus size={25} />}  My List</button>
             <button onClick={() => showMovieTrailer(movie)} className='rounded bg-gray-300 border-none w-[100px] h-[50px] text-black flex justify-center font-bold items-center text-xl mx-2 hover:bg-slate-400'><BsFillPlayFill size={30} />Play</button>
-            <button onClick={() => showMovieInfo(movie)} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col'><AiOutlineInfoCircle size={25} /> Info</button>
+            <button onClick={() => showMovieInfo(movie)} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col hover:text-slate-400'><AiOutlineInfoCircle size={25} /> Info</button>
           </div>
           <p className='text-gray-400 text-sm'>Released: {movie?.release_date}</p>
           <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200:'>{truncateString(movie?.overview, 250)}</p>
