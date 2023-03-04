@@ -21,12 +21,14 @@ const InfoOverlay = () => {
     const navigate = useNavigate();
 
     const showInfo = () => {
+        setLike(false)
         setIsOverlayOpen(false);
         navigate('/movieinfo');
         document.body.style.overflow = 'scroll';
     }
 
     const playTrailer = () => {
+        setLike(false);
         setIsOverlayOpen(false);
         navigate('/trailer');
         document.body.style.overflow = 'scroll';
@@ -59,6 +61,7 @@ const InfoOverlay = () => {
     }
 
     const closeOverlay = () => {
+        setLike(false);
         setIsOverlayOpen(false);
         document.body.style.overflow = 'scroll';
     }
@@ -95,7 +98,7 @@ const InfoOverlay = () => {
                         <p>Info</p>
                     </div>
                     <div onClick={saveShow} className='flex flex-col items-center justify-center cursor-pointer hover:text-gray-300'>
-                        {like ? <AiOutlinePlus size={50} /> : <AiOutlineCheck size={50} />}
+                        {!like ? <AiOutlinePlus size={50} /> : <AiOutlineCheck size={50} />}
                         <p>My List</p>
                     </div>
                 </div>
