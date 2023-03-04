@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { SelectedMovie } from '../context/SelectedMovieContext';
+import { ScreenSizeContext } from '../context/ScreenSizeContext';
+import { useContext } from 'react';
 
 const MovieInfo = () => {
     const navigate = useNavigate();
     const { selectedMovie } = SelectedMovie();
+    const isSmallScreen = useContext(ScreenSizeContext);
 
     return (
         <>
@@ -12,9 +15,14 @@ const MovieInfo = () => {
                     <div className='absolute w-full h-full bg-gradient-to-r from-black'></div>
                     <img
                         className='w-full h-full object-cover object-top'
-                        src={selectedMovie?.backdrop_path !== undefined
-                            ? `https://image.tmdb.org/t/p/original/${selectedMovie?.backdrop_path}`
-                            : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
+                        src={
+                            !isSmallScreen
+                                ? selectedMovie?.backdrop_path !== undefined
+                                    ? `https://image.tmdb.org/t/p/original/${selectedMovie?.backdrop_path}`
+                                    : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
+                                : selectedMovie?.poster_path !== undefined
+                                    ? `https://image.tmdb.org/t/p/original/${selectedMovie?.poster_path}`
+                                    : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
                         }
                         alt={'movie_main'}
                     />
