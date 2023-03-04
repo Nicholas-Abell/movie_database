@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthContextProvider } from './context/AuthContext';
 import { SelectedMovieContextProvider } from './context/SelectedMovieContext';
+import { ScreenSizeProvider } from './context/ScreenSizeContext';
 
 import './Index.css';
 import Navbar from './components/Navbar';
@@ -15,19 +16,21 @@ import Trailer from './pages/Trailer';
 function App() {
   return (
     <>
-      <SelectedMovieContextProvider>
-        <AuthContextProvider>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/movieinfo' element={<MovieInfo />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/account' element={<ProtectedRoute><Account /></ProtectedRoute>} />
-            <Route path='/trailer' element={<Trailer />} />
-          </Routes>
-        </AuthContextProvider>
-      </SelectedMovieContextProvider>
+      <ScreenSizeProvider>
+        <SelectedMovieContextProvider>
+          <AuthContextProvider>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/movieinfo' element={<MovieInfo />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<SignUp />} />
+              <Route path='/account' element={<ProtectedRoute><Account /></ProtectedRoute>} />
+              <Route path='/trailer' element={<Trailer />} />
+            </Routes>
+          </AuthContextProvider>
+        </SelectedMovieContextProvider>
+      </ScreenSizeProvider>
     </>
   );
 }

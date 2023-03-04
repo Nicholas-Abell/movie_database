@@ -18,11 +18,12 @@ const Trailer = () => {
 
 
   return (
-    <div className='py-20'>
+    <div className='py-20 border border-green-400'>
       {
         ytId
-          ? (<div className='h-full w-full object-cover'><YouTubePlayer videoId={ytId} /></div>)
-          : null
+          ? (
+            <YouTubePlayer height={'700px'} videoId={ytId} />
+          ) : null
       }
     </div>
   )

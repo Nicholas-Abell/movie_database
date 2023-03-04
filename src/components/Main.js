@@ -8,32 +8,19 @@ import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { SelectedMovie } from '../context/SelectedMovieContext';
+import { ScreenSizeContext } from '../context/ScreenSizeContext';
 
 const Main = () => {
   const { setSelectedMovie } = SelectedMovie();
+  const isSmallScreen = useContext(ScreenSizeContext);
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [like, setLike] = useState(false);
   const [saved, setSaved] = useState(false);
   const navigate = useNavigate();
   const { user } = UserAuth();
 
   const movieID = doc(db, 'users', `${user?.email}`);
-
-
-  useEffect(() => {
-    function handleResize() {
-      setIsSmallScreen(window.innerWidth < 768);
-    }
-
-    handleResize(); // Call handleResize initially
-    window.addEventListener('resize', handleResize); // Add resize event listener
-
-    return () => {
-      window.removeEventListener('resize', handleResize); // Remove resize event listener on component unmount
-    };
-  }, []);
 
   useEffect(() => {
     axios.get(request.requestPopular).then((res) => {
