@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Movie from './Movie';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Row = ({ title, url, rowId }) => {
     const [movies, setMovies] = useState([]);

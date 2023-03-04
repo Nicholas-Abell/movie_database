@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineInfoCircle } from 'react-icons/ai';
+import { BsFillPlayFill } from 'react-icons/bs';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
@@ -24,16 +25,6 @@ const SavedShows = () => {
         navigate('/trailer');
     }
 
-    const slideLeft = () => {
-        let slider = document.getElementById('slider');
-        slider.scrollLeft = slider.scrollLeft - 500;
-    }
-
-    const slideRight = () => {
-        let slider = document.getElementById('slider');
-        slider.scrollLeft = slider.scrollLeft + 500;
-    }
-
     const deleteMovie = async (id) => {
         try {
             const res = movies.filter((movie) => movie.id !== id);
@@ -53,7 +44,7 @@ const SavedShows = () => {
 
     return (
         <>
-            <div className='relative flex items-center group pt-20'>
+            <div className='relative pt-20'>
                 <div className='w-full h-full relative flex flex-wrap items-center justify-center gap-2'>
                     {
                         movies.map((movie, id) => {
@@ -63,12 +54,12 @@ const SavedShows = () => {
                                         className='w-full h-auto block'
                                         src={`https://image.tmdb.org/t/p/original/${movie?.img}`} alt={movie?.title}
                                     />
-                                    <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100'>
-                                        <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full'>{movie?.title}</p>
+                                    <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 flex justify-center items-center py-2'>
+                                        <p className='white-space-normal font-bold h-full text-xs md:text-lg lg:text-xl'>{movie?.title}</p>
                                         <p onClick={() => deleteMovie(movie.id)} className='absolute top-4 left-4 hover:bg-slate-500'><AiOutlineClose /></p>
-                                        <div className='flex justify-center items-center absolute bottom-5 left-0 right-0 w-full'>
-                                            <button onClick={() => showMovieTrailer(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Play</button>
-                                            <button onClick={() => showMovieInfo(movie)} className=' my-auto mx-auto bg-slate-400 rounded py-2 px-3 hover:bg-slate-600'>Info</button>
+                                        <div className='flex justify-center gap-6 items-center absolute bottom-5 left-0 right-0 w-full'>
+                                            <button onClick={() => showMovieTrailer(movie)} className='rounded bg-gray-300 border-none w-[80px] h-[40px] text-black flex justify-center font-bold items-center text-lg hover:bg-slate-400'><BsFillPlayFill size={25} />Play</button>
+                                            <button onClick={() => showMovieInfo(movie)} className='text-gray-300 bg-none flex justify-center items-center flex-col hover:text-slate-400'><AiOutlineInfoCircle size={25} /> Info</button>
                                         </div>
                                     </div>
                                 </div>

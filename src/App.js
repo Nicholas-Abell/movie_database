@@ -13,12 +13,8 @@ import SignUp from './pages/SignUp';
 import Trailer from './pages/Trailer';
 
 function App() {
-
-  // const [selectedMovie, setSelectedMovie] = useState();
-
   return (
     <>
-      {/* <AppContext.Provider value={{ selectedMovie, setSelectedMovie }}> */}
       <SelectedMovieContextProvider>
         <AuthContextProvider>
           <Navbar />
@@ -32,7 +28,6 @@ function App() {
           </Routes>
         </AuthContextProvider>
       </SelectedMovieContextProvider>
-      {/* </AppContext.Provider> */}
     </>
   );
 }

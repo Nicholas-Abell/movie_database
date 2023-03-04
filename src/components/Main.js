@@ -13,13 +13,27 @@ const Main = () => {
   const { setSelectedMovie } = SelectedMovie();
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
-  const navigate = useNavigate();
-
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [like, setLike] = useState(false);
   const [saved, setSaved] = useState(false);
+  const navigate = useNavigate();
   const { user } = UserAuth();
 
   const movieID = doc(db, 'users', `${user?.email}`);
+
+
+  useEffect(() => {
+    function handleResize() {
+      setIsSmallScreen(window.innerWidth < 768);
+    }
+
+    handleResize(); // Call handleResize initially
+    window.addEventListener('resize', handleResize); // Add resize event listener
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // Remove resize event listener on component unmount
+    };
+  }, []);
 
   useEffect(() => {
     axios.get(request.requestPopular).then((res) => {
@@ -78,7 +92,7 @@ const Main = () => {
         <div className='absolute w-full h-[550px] bg-gradient-to-r from-black'></div>
         <img
           className='w-full h-full object-cover'
-          src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+          src={!isSmallScreen ? `https://image.tmdb.org/t/p/original/${movie?.backdrop_path}` : `https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
           alt={'movie_main'}
         />
         <div className='absolute w-full top-[20%] p-4 md:p-8'>
