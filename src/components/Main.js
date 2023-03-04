@@ -1,16 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
-import { AppContext } from '../App';
 import { request } from '../Request';
 import { useNavigate } from 'react-router-dom';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle, AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
-import { UserAuth } from '../Context/AuthContext';
+import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
+import { SelectedMovie } from '../context/SelectedMovieContext';
 
 const Main = () => {
-  const { setSelectedMovie } = useContext(AppContext);
+  const { setSelectedMovie } = SelectedMovie();
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();

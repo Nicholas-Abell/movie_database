@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import backgroundImg from '../assets/images/bacnkground_movie_posters.jpg';
-import { UserAuth } from '../Context/AuthContext';
+import backgroundImg from '../assets/images/background_movie_posters.jpg';
+import { UserAuth } from '../context/AuthContext';
 
 
 const Login = () => {

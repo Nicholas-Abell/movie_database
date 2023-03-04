@@ -1,17 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { UserAuth } from '../Context/AuthContext';
+import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { OverLayContext } from '../pages/Home';
-import { useNavigate } from 'react-router-dom';
+import { SelectedMovie } from '../context/SelectedMovieContext';
 
-const Movie = ({ movie, setSelectedMovie }) => {
+const Movie = ({ movie }) => {
     const [like, setLike] = useState(false);
     const [saved, setSaved] = useState(false);
     const { user } = UserAuth();
     const { setIsOverlayOpen } = useContext(OverLayContext);
-    const navigate = useNavigate();
+    const { setSelectedMovie } = SelectedMovie();
 
     const movieID = doc(db, 'users', `${user?.email}`);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserAuth } from '../Context/AuthContext';
+import { UserAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const { user, logOut } = UserAuth();
@@ -16,7 +16,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className='flex items-center justify-between p-4 z-[100] w-full absolute'>
+    <div className='flex items-center justify-between p-4 z-30 w-full absolute'>
       <Link to='/'>
         <h1 className='text-red-600 text-4xl font-bold cursor-pointer'>Movie Database</h1>
       </Link>

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import React, { useState, useEffect, useContext } from 'react';
 import { AiOutlineClose } from 'react-icons/ai'
-import { UserAuth } from '../Context/AuthContext';
+import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { SelectedMovie } from '../context/SelectedMovieContext';
 
-const SavedShows = ({ setSelectedMovie }) => {
+const SavedShows = () => {
+    const { setSelectedMovie } = SelectedMovie();
     const [movies, setMovies] = useState([]);
     const { user } = UserAuth();
     const movieRef = doc(db, 'users', `${user?.email}`);

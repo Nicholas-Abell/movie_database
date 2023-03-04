@@ -1,9 +1,6 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../App';
 import SavedShows from '../components/SavedShows';
 
 const Account = () => {
-    const { setSelectedMovie } = useContext(AppContext);
     return (
         <>
             <div className='w-full'>
@@ -11,7 +8,7 @@ const Account = () => {
                     <h1 className='text-3xl md:text-5xl font-bold'></h1>
                 </div>
             </div>
-            <SavedShows setSelectedMovie={setSelectedMovie} />
+            <SavedShows />
         </>
     )
 }

@@ -1,7 +1,7 @@
-import { useState, createContext, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
-import { AuthContextProvider } from './Context/AuthContext';
+import { AuthContextProvider } from './context/AuthContext';
+import { SelectedMovieContextProvider } from './context/SelectedMovieContext';
 
 import './Index.css';
 import Navbar from './components/Navbar';
@@ -12,15 +12,14 @@ import MovieInfo from './pages/MovieInfo';
 import SignUp from './pages/SignUp';
 import Trailer from './pages/Trailer';
 
-export const AppContext = createContext();
-
 function App() {
 
-  const [selectedMovie, setSelectedMovie] = useState();
+  // const [selectedMovie, setSelectedMovie] = useState();
 
   return (
     <>
-      <AppContext.Provider value={{ selectedMovie, setSelectedMovie }}>
+      {/* <AppContext.Provider value={{ selectedMovie, setSelectedMovie }}> */}
+      <SelectedMovieContextProvider>
         <AuthContextProvider>
           <Navbar />
           <Routes>
@@ -32,7 +31,8 @@ function App() {
             <Route path='/trailer' element={<Trailer />} />
           </Routes>
         </AuthContextProvider>
-      </AppContext.Provider>
+      </SelectedMovieContextProvider>
+      {/* </AppContext.Provider> */}
     </>
   );
 }
