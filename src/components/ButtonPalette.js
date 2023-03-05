@@ -7,7 +7,7 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle, AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 import { SelectedMovie } from '../context/SelectedMovieContext';
 
-const ButtonPalette = ({ movie, setMovieBool, showInfoBool }) => {
+const ButtonPalette = ({ movie, setMovieBool = false, showInfoBool = true, showAddToListBool = true, size=25 }) => {
     const navigate = useNavigate();
     const { user } = UserAuth();
     const movieID = doc(db, 'users', `${user?.email}`);
@@ -46,10 +46,10 @@ const ButtonPalette = ({ movie, setMovieBool, showInfoBool }) => {
 
     return (
         <div className='my-4 flex'>
-            <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm hover:text-slate-400'>{like ? <AiOutlineCheck /> : <AiOutlinePlus size={25} />}  My List</button>
-            <button onClick={() => showMovieTrailer(movie)} className='rounded bg-gray-300 border-none w-[100px] h-[50px] text-black flex justify-center font-bold items-center text-xl mx-2 hover:bg-slate-400'><BsFillPlayFill size={30} />Play</button>
+            {showAddToListBool ? <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm hover:text-slate-400'>{like ? <AiOutlineCheck /> : <AiOutlinePlus size={size} />}  My List</button> : null}
+            <button onClick={() => showMovieTrailer(movie)} className='rounded bg-gray-300 border-none w-[100px] h-[50px] text-black flex justify-center font-bold items-center text-xl mx-2 hover:bg-slate-400'><BsFillPlayFill size={size} />Play</button>
             {showInfoBool ?
-                <button onClick={() => showMovieInfo(movie)} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col hover:text-slate-400'><AiOutlineInfoCircle size={25} /> Info</button>
+                <button onClick={() => showMovieInfo(movie)} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col hover:text-slate-400'><AiOutlineInfoCircle size={size} /> Info</button>
                 : null}
         </div>
     )

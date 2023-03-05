@@ -1,29 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { AiOutlineClose, AiOutlineInfoCircle } from 'react-icons/ai';
-import { BsFillPlayFill } from 'react-icons/bs';
+import { AiOutlineClose } from 'react-icons/ai';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
-import { SelectedMovie } from '../context/SelectedMovieContext';
+import ButtonPalette from './ButtonPalette';
+import { ScreenSizeContext } from '../context/ScreenSizeContext';
 
 const SavedShows = () => {
-    const { setSelectedMovie } = SelectedMovie();
     const [movies, setMovies] = useState([]);
     const { user } = UserAuth();
     const movieRef = doc(db, 'users', `${user?.email}`);
-    const navigate = useNavigate();
-
-    const showMovieInfo = (movie) => {
-        setSelectedMovie(movie);
-        navigate('/movieinfo');
-        console.log('from acoount: ' + movie)
-    }
-
-    const showMovieTrailer = (movie) => {
-        setSelectedMovie(movie);
-        navigate('/trailer');
-    }
+    const isSmallScreen = useContext(ScreenSizeContext);
 
     const deleteMovie = async (id) => {
         try {
@@ -49,20 +36,31 @@ const SavedShows = () => {
                     {
                         movies.map((movie, id) => {
                             return (
-                                <div key={id} className='w-[40%] md:w-[30%] cursor-pointer relative rounded overflow-hidden'>
-                                    <img
-                                        className='w-full h-auto block'
-                                        src={`https://image.tmdb.org/t/p/original/${movie?.img}`} alt={movie?.title}
-                                    />
-                                    <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 flex justify-center items-center py-2'>
-                                        <p className='white-space-normal font-bold h-full text-xs md:text-lg lg:text-xl'>{movie?.title}</p>
-                                        <p onClick={() => deleteMovie(movie.id)} className='absolute top-4 left-4 hover:bg-slate-500'><AiOutlineClose /></p>
-                                        <div className='flex justify-center gap-6 items-center absolute bottom-5 left-0 right-0 w-full'>
-                                            <button onClick={() => showMovieTrailer(movie)} className='rounded bg-gray-300 border-none w-[80px] h-[40px] text-black flex justify-center font-bold items-center text-lg hover:bg-slate-400'><BsFillPlayFill size={25} />Play</button>
-                                            <button onClick={() => showMovieInfo(movie)} className='text-gray-300 bg-none flex justify-center items-center flex-col hover:text-slate-400'><AiOutlineInfoCircle size={25} /> Info</button>
+                                !isSmallScreen ?
+                                    (< div key={id} className='w-[40%] md:w-[30%] cursor-pointer relative rounded overflow-hidden' >
+                                        <img
+                                            className='w-full h-auto block'
+                                            src={`https://image.tmdb.org/t/p/original/${movie?.img}`} alt={movie?.title}
+                                        />
+                                        <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 flex justify-center items-center py-2'>
+                                            <p className='white-space-normal font-bold h-full text-xs md:text-lg lg:text-xl'>{movie?.title}</p>
+                                            <p onClick={() => deleteMovie(movie.id)} className='absolute top-4 left-4 hover:bg-slate-500'><AiOutlineClose /></p>
+                                            <div className='flex justify-center gap-6 items-center absolute bottom-5 left-0 right-0 w-full'>
+                                                <ButtonPalette movie={movie} showAddToListBool={false} />
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div>)
+                                    : (
+                                        (< div key={id} className='w-[40%] md:w-[30%] relative rounded overflow-hidden py-8' >
+                                            <h1 className='font-bold text-center'>{movie?.title}</h1>
+                                            <p onClick={() => deleteMovie(movie.id)} className='absolute top-4 left-4 hover:bg-slate-500 cursor-pointer'><AiOutlineClose /></p>
+                                            <img
+                                                className='w-full h-auto block'
+                                                src={`https://image.tmdb.org/t/p/original/${movie?.img}`} alt={movie?.title}
+                                            />
+                                            <ButtonPalette movie={movie} showAddToListBool={false} />
+                                        </div>)
+                                    )
                             )
                         })
                     }

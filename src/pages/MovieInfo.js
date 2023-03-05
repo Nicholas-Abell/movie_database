@@ -3,12 +3,11 @@ import { SelectedMovie } from '../context/SelectedMovieContext';
 import { ScreenSizeContext } from '../context/ScreenSizeContext';
 import { useContext, useEffect, useState } from 'react';
 import { SiHulu, SiNetflix, SiAmazonprime } from 'react-icons/si';
-import { BsFillPlayFill } from 'react-icons/bs';
-import { AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 import axios from 'axios';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
+import ButtonPalette from '../components/ButtonPalette';
 
 const streamKey = process.env.REACT_APP_STREAMING_SEARCH_API;
 const streamDomain = process.env.REACT_APP_STREAMING_AUTH_DOMAIN;
@@ -18,11 +17,6 @@ const MovieInfo = () => {
     const { selectedMovie } = SelectedMovie();
     const isSmallScreen = useContext(ScreenSizeContext);
     const [streaming, setStreaming] = useState([]);
-    const [like, setLike] = useState();
-    const { user } = UserAuth();
-    const [saved, setSaved] = useState(false);
-
-    const movieID = doc(db, 'users', `${user?.email}`);
 
     const options = {
         method: 'GET',
@@ -41,25 +35,6 @@ const MovieInfo = () => {
             console.error(error);
         });
     }, []);
-
-    const saveShow = async () => {
-        if (user?.email) {
-            setLike(!like);
-            setSaved(true);
-            await updateDoc(movieID, {
-                savedShows: arrayUnion({
-                    id: selectedMovie.id,
-                    title: selectedMovie.title,
-                    img: selectedMovie.backdrop_path,
-                    release_date: selectedMovie.release_date,
-                    overview: selectedMovie.overview
-                })
-            })
-        } else {
-            alert('Please Log in to save a movie');
-        }
-    }
-
 
     // title:"Back to the Future"
     // year:"1985"
@@ -102,10 +77,11 @@ const MovieInfo = () => {
                     <div className='absolute w-full top-[20%] p-4 md:p-8'>
                         <div>
                             <h1 className='text-3xl md:text-5xl'>{selectedMovie?.title}</h1>
-                            <div className='my-4 flex '>
+                            <ButtonPalette movie={selectedMovie} showInfoBool={false} />
+                            {/* <div className='my-4 flex '>
                                 <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm hover:text-slate-400'>{like ? <AiOutlineCheck /> : <AiOutlinePlus size={25} />}  My List</button>
                                 <button onClick={() => navigate('/trailer')} className='rounded bg-gray-300 border-none w-[100px] h-[50px] text-black flex justify-center font-bold items-center text-xl mx-2 hover:bg-slate-400'><BsFillPlayFill size={30} />Play</button>
-                            </div>
+                            </div> */}
                             <p className='text-gray-400 text-sm'>Released: {selectedMovie?.release_date}</p>
                             <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200:'>{selectedMovie?.overview}</p>
                         </div>
