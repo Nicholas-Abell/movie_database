@@ -19,7 +19,6 @@ const InfoOverlay = () => {
     }
 
     const closeOverlay = () => {
-        // setLike(false);
         setIsOverlayOpen(false);
         document.body.style.overflow = 'scroll';
     }

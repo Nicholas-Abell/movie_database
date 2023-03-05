@@ -1,22 +1,22 @@
-import { useNavigate } from 'react-router-dom';
 import { SelectedMovie } from '../context/SelectedMovieContext';
 import { ScreenSizeContext } from '../context/ScreenSizeContext';
 import { useContext, useEffect, useState } from 'react';
 import { SiHulu, SiNetflix, SiAmazonprime } from 'react-icons/si';
 import axios from 'axios';
-import { UserAuth } from '../context/AuthContext';
-import { db } from '../firebase';
-import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import ButtonPalette from '../components/ButtonPalette';
 
+const tmdbKey = process.env.REACT_APP_MOVIE_DATABASE_API;
 const streamKey = process.env.REACT_APP_STREAMING_SEARCH_API;
 const streamDomain = process.env.REACT_APP_STREAMING_AUTH_DOMAIN;
 
 const MovieInfo = () => {
-    const navigate = useNavigate();
     const { selectedMovie } = SelectedMovie();
     const isSmallScreen = useContext(ScreenSizeContext);
     const [streaming, setStreaming] = useState([]);
+    const [backupStream, setBackupStream] = useState([]);
+
+    const url = `https://api.themoviedb.org/3/movie/${selectedMovie?.id}/watch/providers?api_key=${tmdbKey}`
+
 
     const options = {
         method: 'GET',
@@ -28,13 +28,27 @@ const MovieInfo = () => {
     };
 
     useEffect(() => {
-        axios.request(options).then(function (response) {
-            console.log(response.data[0]);
-            setStreaming(response.data[0].options.stream)
-        }).catch(function (error) {
-            console.error(error);
-        });
+        axios.request(options)
+            .then(function (response) {
+                console.log(response.data[0]);
+                setStreaming(response.data[0].options.stream)
+            })
+            .catch(function (error) {
+                console.error(error);
+                axios.get(url)
+                    .then((res) => {
+                        console.log(res.data.results.US.flatrate[0].provider_name);
+                        setBackupStream(res.data.results.US.flatrate);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            });
     }, []);
+
+    useEffect(() => {
+        console.log('back up stream:' + backupStream);
+    }, [backupStream])
 
     // title:"Back to the Future"
     // year:"1985"
@@ -78,42 +92,54 @@ const MovieInfo = () => {
                         <div>
                             <h1 className='text-3xl md:text-5xl'>{selectedMovie?.title}</h1>
                             <ButtonPalette movie={selectedMovie} showInfoBool={false} />
-                            {/* <div className='my-4 flex '>
-                                <button onClick={saveShow} className='text-gray-300 py-1 px-5 ml-4 bg-none flex justify-center items-center flex-col text-sm hover:text-slate-400'>{like ? <AiOutlineCheck /> : <AiOutlinePlus size={25} />}  My List</button>
-                                <button onClick={() => navigate('/trailer')} className='rounded bg-gray-300 border-none w-[100px] h-[50px] text-black flex justify-center font-bold items-center text-xl mx-2 hover:bg-slate-400'><BsFillPlayFill size={30} />Play</button>
-                            </div> */}
                             <p className='text-gray-400 text-sm'>Released: {selectedMovie?.release_date}</p>
                             <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200:'>{selectedMovie?.overview}</p>
                         </div>
                         <div className='mt-16 rounded-lg bg-black opacity-80'>
                             <h1 className='text-3xl md:text-5xl text-center border-b py-2 font-bold'>Where To Watch</h1>
 
-                            {streaming.length > 0
+                            {streaming.length > 0 || backupStream.length > 0
                                 ? <div className='w-full p-4 flex justify-center items-center gap-12'>
                                     {streaming?.map((stream) => stream.provider).includes('Netflix')
+                                        || backupStream?.map((stream) => stream.provider_name).includes('Netflix')
                                         ? <div className='cursor-pointer'><SiNetflix className='text-red-600' size={50} /> Netflix</div>
                                         : <div className='text-gray-500 opacity-80'><SiNetflix className='text-gray-500 opacity-80' size={50} /> Netflix</div>}
                                     {streaming?.map((stream) => stream.provider).includes('Hulu')
+                                        || backupStream?.map((stream) => stream.provider_name).includes('Hulu')
                                         ? <div><SiHulu className='text-green-500' size={100} /></div>
                                         : <div><SiHulu className='text-gray-500 opacity-80' size={100} /></div>}
                                     {streaming?.map((stream) => stream.provider).includes('Disney Plus')
+                                        || backupStream?.map((stream) => stream.provider_name).includes('Disney Plus')
                                         ? <div className='text-3xl text-blue-400'>Disney+</div>
                                         : <div className='text-3xl text-gray-500 opacity-80'>Disney+</div>}
                                 </div>
-                                : <div className='p-4'>...Checking</div>}
-                            <div>
+                                : <div className='p-4'>...Could Not Find a Streaming Service for this Product</div>
+                            }
+                            <div className='border border-red-400 flex flex-col'>
+                                <h1>Providers:</h1>
                                 {
-                                    streaming ?
+                                    //Chatgpt why does this return null
+                                    streaming?.length > 0 ?
                                         (
-                                            streaming.map((stream) => {
+                                            streaming?.map((stream, key) => {
                                                 return (
-                                                    <div>
-                                                        <div>{stream.provider}</div>
+                                                    <div key={key}>
+                                                        <div>{stream?.provider} test</div>
                                                     </div>
                                                 )
                                             })
                                         )
-                                        : null
+                                        : backupStream && backupStream.length > 0 ?
+                                            (
+                                                backupStream.map((stream, key) => {
+                                                    return (
+                                                        <div key={key}>
+                                                            <div>{stream?.provider_name} test</div>
+                                                        </div>
+                                                    )
+                                                })
+                                            )
+                                            : null
                                 }
                             </div>
                         </div>
