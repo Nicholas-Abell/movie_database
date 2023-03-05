@@ -18,7 +18,7 @@ const Trailer = () => {
 
 
   return (
-    <div className='py-20 border border-green-400'>
+    <div className='py-20'>
       {
         ytId
           ? (

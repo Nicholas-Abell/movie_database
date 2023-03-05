@@ -14,6 +14,7 @@ import SignUp from './pages/SignUp';
 import Trailer from './pages/Trailer';
 
 function App() {
+
   return (
     <>
       <ScreenSizeProvider>
