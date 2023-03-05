@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { SelectedMovie } from '../context/SelectedMovieContext';
 import { ScreenSizeContext } from '../context/ScreenSizeContext';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SiHulu, SiNetflix, SiAmazonprime } from 'react-icons/si';
 // import { TbBrandDisney } from 'react-icons/tb';
 import axios from 'axios';
@@ -12,6 +12,8 @@ const MovieInfo = () => {
     const navigate = useNavigate();
     const { selectedMovie } = SelectedMovie();
     const isSmallScreen = useContext(ScreenSizeContext);
+    const [streaming, setStreaming] = useState([]);
+    const [provider, setProvider] = useState([]);
 
     const options = {
         method: 'GET',
@@ -22,30 +24,35 @@ const MovieInfo = () => {
         }
     };
 
-    axios.request(options).then(function (response) {
-        console.log(response.data);
-    }).catch(function (error) {
-        console.error(error);
-    });
+    useEffect(() => {
+        axios.request(options).then(function (response) {
+            console.log(response.data[0]);
+            setStreaming(response.data[0].options.stream)
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, [])
+
 
     // title:"Back to the Future"
     // year:"1985"
     // country:"us"
-    // options:stream:0:
-    // provider:"Peacock Premium"
-    // option:"Stream"
-    // pricing:"Subs HD "
-    // providerUrl:"https://www.peacocktv.com/watch/asset/movies/adventure/back-to-the-future/2a2c1229-2a42-3a10-bd50-2596e64e96d1"
-    // 1:
-    // provider:"DIRECTV"
-    // option:"Stream"
-    // pricing:"Subs HD "
-    // providerUrl:"https://www.directv.com/movies/Back-to-the-Future-RTB4bU5Xb2I3Y3NpL3Rwb1JpMmJydz09"
-    // 2:
-    // provider:"USA Network"
-    // option:"Stream"
-    // pricing:"Subs "
-    // providerUrl:"https://www.usanetwork.com/back-to-the-future/video/back-to-the-future/4230005"
+    //  options:stream:
+    //      0:
+    //      provider:"Peacock Premium"
+    //      option:"Stream"
+    //      pricing:"Subs HD "
+    //      providerUrl:"https://www.peacocktv.com/watch/asset/movies/adventure/back-to-the-future/2a2c1229-2a42-3a10-bd50-2596e64e96d1"
+    //      1:
+    //      provider:"DIRECTV"
+    //      option:"Stream"
+    //      pricing:"Subs HD "
+    //      providerUrl:"https://www.directv.com/movies/Back-to-the-Future-RTB4bU5Xb2I3Y3NpL3Rwb1JpMmJydz09"
+    //      2:
+    //      provider:"USA Network"
+    //      option:"Stream"
+    //      pricing:"Subs "
+    //      providerUrl:"https://www.usanetwork.com/back-to-the-future/video/back-to-the-future/4230005"
 
     return (
         <>
@@ -78,9 +85,30 @@ const MovieInfo = () => {
                         <div className='mt-16 rounded-lg bg-black opacity-80'>
                             <h1 className='text-3xl md:text-5xl text-center border-b py-2'>Where To Watch</h1>
                             <div className='w-full p-4 flex justify-center items-center gap-12'>
-                                <div><SiNetflix className='text-red-600' size={50} /> Netflix</div>
-                                <div><SiHulu className='text-green-500' size={100} /> </div>
-                                <div className='text-3xl'>Disney+</div>
+                                {streaming.map((stream) => stream.provider).includes('Netflix')
+                                    ? <div className='cursor-pointer'><SiNetflix className='text-red-600' size={50} /> Netflix</div>
+                                    : <div className='text-gray-500 opacity-80'><SiNetflix className='text-gray-500 opacity-80' size={50} /> Netflix</div>}
+                                {streaming.map((stream) => stream.provider).includes('Hulu')
+                                    ? <div><SiHulu className='text-green-500' size={100} /></div>
+                                    : <div><SiHulu className='text-gray-500 opacity-80' size={100} /></div>}
+                                {streaming.map((stream) => stream.provider).includes('Disney Plus')
+                                    ? <div className='text-3xl text-blue-400'>Disney+</div>
+                                    : <div className='text-3xl text-gray-500 opacity-80'>Disney+</div>}
+                            </div>
+                            <div>
+                                {
+                                    streaming ?
+                                        (
+                                            streaming.map((stream) => {
+                                                return (
+                                                    <div>
+                                                        <div>{stream.provider}</div>
+                                                    </div>
+                                                )
+                                            })
+                                        )
+                                        : null
+                                }
                             </div>
                         </div>
                     </div>
@@ -90,4 +118,4 @@ const MovieInfo = () => {
     )
 }
 
-export default MovieInfo
+export default MovieInfo;
