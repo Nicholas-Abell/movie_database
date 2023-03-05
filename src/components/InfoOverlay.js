@@ -1,38 +1,13 @@
-import React, { useContext, useState } from 'react';
-// import { AppContext } from '../App';
+import React, { useContext } from 'react';
 import { OverLayContext } from '../pages/Home';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { BsFillPlayFill } from 'react-icons/bs';
-import { AiOutlineInfoCircle, AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
-import { UserAuth } from '../context/AuthContext';
-import { db } from '../firebase';
-import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { SelectedMovie } from '../context/SelectedMovieContext';
+import ButtonPalette from './ButtonPalette';
 
 const InfoOverlay = () => {
     const { selectedMovie } = SelectedMovie();
     const { isOverlayOpen, setIsOverlayOpen } = useContext(OverLayContext);
-    const [like, setLike] = useState(false);
-    const { user } = UserAuth();
-    const movieID = doc(db, 'users', `${user?.email}`);
-    const [saved, setSaved] = useState(false);
-
-    const navigate = useNavigate();
-
-    const showInfo = () => {
-        setLike(false)
-        setIsOverlayOpen(false);
-        navigate('/movieinfo');
-        document.body.style.overflow = 'scroll';
-    }
-
-    const playTrailer = () => {
-        setLike(false);
-        setIsOverlayOpen(false);
-        navigate('/trailer');
-        document.body.style.overflow = 'scroll';
-    }
+    // const [like, setLike] = useState(false);
 
     const truncateString = (str, num) => {
         if (str?.length > num) {
@@ -42,26 +17,8 @@ const InfoOverlay = () => {
         }
     }
 
-    const saveShow = async () => {
-        if (user?.email) {
-            setLike(!like);
-            setSaved(true);
-            await updateDoc(movieID, {
-                savedShows: arrayUnion({
-                    id: selectedMovie.id,
-                    title: selectedMovie.title,
-                    img: selectedMovie.backdrop_path,
-                    release_date: selectedMovie.release_date,
-                    overview: selectedMovie.overview
-                })
-            })
-        } else {
-            alert('Please Log in to save a movie');
-        }
-    }
-
     const closeOverlay = () => {
-        setLike(false);
+        // setLike(false);
         setIsOverlayOpen(false);
         document.body.style.overflow = 'scroll';
     }
@@ -88,20 +45,7 @@ const InfoOverlay = () => {
                         <p className='text-sm md:text-lg my-5'>{truncateString(selectedMovie?.overview, 200)}</p>
                     </div>
                 </div>
-                <div className='flex justify-around items-center my-8 gap-12 border-t-2 border-gray-400 py-2'>
-                    <div onClick={playTrailer} className='flex flex-col items-center justify-center cursor-pointer hover:text-gray-300'>
-                        <BsFillPlayFill size={50} />
-                        <p>Play</p>
-                    </div>
-                    <div onClick={showInfo} className='flex flex-col items-center justify-center cursor-pointer hover:text-gray-300'>
-                        <AiOutlineInfoCircle size={50} />
-                        <p>Info</p>
-                    </div>
-                    <div onClick={saveShow} className='flex flex-col items-center justify-center cursor-pointer hover:text-gray-300'>
-                        {!like ? <AiOutlinePlus size={50} /> : <AiOutlineCheck size={50} />}
-                        <p>My List</p>
-                    </div>
-                </div>
+                <ButtonPalette movie={selectedMovie} showInfoBool={true} setMovieBool={false} />
             </div>
 
         </div>
