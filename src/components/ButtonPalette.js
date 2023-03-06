@@ -7,7 +7,7 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle, AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 import { SelectedMovie } from '../context/SelectedMovieContext';
 
-const ButtonPalette = ({ movie, setMovieBool = false, showInfoBool = true, showAddToListBool = true, size=25 }) => {
+const ButtonPalette = ({ movie, setMovieBool = false, showInfoBool = true, showAddToListBool = true, size = 25 }) => {
     const navigate = useNavigate();
     const { user } = UserAuth();
     const movieID = doc(db, 'users', `${user?.email}`);
@@ -18,11 +18,13 @@ const ButtonPalette = ({ movie, setMovieBool = false, showInfoBool = true, showA
 
     const showMovieInfo = (movie) => {
         const selectedMovie = setMovieBool ? setSelectedMovie(movie) : null;
+        document.body.style.overflow = 'scroll';
         navigate('/movieinfo');
     }
 
     const showMovieTrailer = (movie) => {
         const selectedMovie = setMovieBool ? setSelectedMovie(movie) : null;
+        document.body.style.overflow = 'scroll';
         navigate('/trailer');
     }
 

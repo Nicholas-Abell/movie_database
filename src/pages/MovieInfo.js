@@ -29,6 +29,10 @@ const MovieInfo = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
         axios.get(url)
             .then((res) => {
                 console.log(res.data.results.US);
@@ -63,6 +67,7 @@ const MovieInfo = () => {
             </div> */}
             <div className='relatvie z-10 w-full'>
                 <div className='absolute z-10 w-full h-full bg-gradient-to-b from-black opacity-80'></div>
+                <div className='absolute z-10 w-full h-full bg-gradient-to-t from-black opacity-80'></div>
                 <img
                     className='absolute w-full h-full object-cover object-top'
                     src={
@@ -76,19 +81,19 @@ const MovieInfo = () => {
                     }
                     alt={'movie_main'}
                 />
-                <div className='p-4 relative w-full z-20 pt-20'>
+                <div className='p-4 relative w-full z-20 pt-24'>
                     <div className='z-10'>
                         <h1 className='pt-4 text-3xl md:text-5xl'>{selectedMovie?.title}</h1>
                         <ButtonPalette movie={selectedMovie} showInfoBool={false} />
                         <p className='text-gray-400 text-sm'>Released: {selectedMovie?.release_date}</p>
                         <p className='w-full lg:max-w-[70%] text-gray-200:'>{selectedMovie?.overview}</p>
                     </div>
-                    <div className='h-[300px] sm:h-[400px] overflow-scroll overflow-x-hidden mt-12 rounded-lg bg-black opacity-80 border'>
-                        <h1 className='text-3xl md:text-5xl text-center border-b font-bold'>Where To Watch</h1>
+                    <div className='mt-24 rounded-lg bg-black opacity-80 border overflow-x-hidden'>
+                        <h1 className='text-3xl md:text-5xl text-center border-b font-bold py-4'>Where To Watch</h1>
                         {streaming
                             ? <div className='w-full p-2 sm:p-5 flex justify-center items-center gap-4 sm:gap-6 md:gap-12'>
                                 {streaming?.map((stream) => stream.provider_name).includes('Netflix')
-                                    ? <div className='cursor-pointer'><SiNetflix className='text-red-600' size={50} /> Netflix</div>
+                                    ? <div><SiNetflix className='text-red-600' size={50} /> Netflix</div>
                                     : <div className='text-gray-500 opacity-80'><SiNetflix className='text-gray-500 opacity-80' size={50} /> Netflix</div>}
                                 {streaming?.map((stream) => stream.provider_name).includes('Hulu')
                                     ? <div><SiHulu className='text-green-500' size={100} /></div>
@@ -100,10 +105,10 @@ const MovieInfo = () => {
                             : <div className='p-4'>...Could Not Find a Streaming Service for this Product</div>
                         }
                         <div className='flex flex-col p-2'>
-                            <h1 className='text-center font-bold text-2xl border-b-2 mb-4'>Provider</h1>
-                            <div className='flex justify-between px-4'>
+                            <h1 className='text-3xl md:text-5xl text-center border-b font-bold py-4'>Provider</h1>
+                            <div className='flex justify-between px-4 py-4'>
                                 <div className='h-full flex flex-col'>
-                                    <h1 className='font-bold text-xl border-b-2'>Stream</h1>
+                                    <h1 className='font-bold text-xl border-b-2 mb-4'>Stream</h1>
                                     <ul className='text-sm md:text-base'>
                                         {
                                             streaming
@@ -148,7 +153,6 @@ const MovieInfo = () => {
                                     </ul>
                                 </div>
                             </ div>
-                            <div className='mt-32'></div> 
                         </div>
                     </div>
                 </div>
