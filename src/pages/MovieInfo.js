@@ -67,7 +67,7 @@ const MovieInfo = () => {
             </div> */}
             <div className='relatvie z-10 w-full'>
                 <div className='absolute z-10 w-full h-full bg-gradient-to-b from-black opacity-80'></div>
-                <div className='absolute z-10 w-full h-full bg-gradient-to-t from-black opacity-80'></div>
+                <div className='absolute z-10 w-full h-full bg-gradient-to-t from-black opacity-95'></div>
                 <img
                     className='absolute w-full h-full object-cover object-top'
                     src={

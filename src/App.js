@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import MovieInfo from './pages/MovieInfo';
 import SignUp from './pages/SignUp';
 import Trailer from './pages/Trailer';
+import Search from './pages/Search';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/movieinfo' element={<MovieInfo />} />
+              <Route path='/search' element={<Search />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<SignUp />} />
               <Route path='/account' element={<ProtectedRoute><Account /></ProtectedRoute>} />
