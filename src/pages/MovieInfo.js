@@ -38,14 +38,6 @@ const MovieInfo = () => {
             })
             .catch(function (error) {
                 console.error(error);
-                axios.request(options)
-                    .then(function (response) {
-                        console.log(response.data[0]);
-                        setStreaming(response.data[0].options.stream)
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
             });
     }, []);
 
@@ -67,41 +59,40 @@ const MovieInfo = () => {
                         }
                         alt={'movie_main'}
                     />
-                    <div className='absolute w-full top-[20%] p-4 md:p-8'>
+                    <div className='absolute w-full top-12 px-4'>
                         <div>
-                            <h1 className='text-3xl md:text-5xl'>{selectedMovie?.title}</h1>
+                            <h1 className='pt-4 text-3xl md:text-5xl'>{selectedMovie?.title}</h1>
                             <ButtonPalette movie={selectedMovie} showInfoBool={false} />
                             <p className='text-gray-400 text-sm'>Released: {selectedMovie?.release_date}</p>
-                            <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200:'>{selectedMovie?.overview}</p>
+                            <p className='w-full lg:max-w-[70%] text-gray-200:'>{selectedMovie?.overview}</p>
                         </div>
-                        <div className='mt-16 rounded-lg bg-black opacity-80 border'>
-                            <h1 className='text-3xl md:text-5xl text-center border-b py-2 font-bold'>Where To Watch</h1>
-                            {streaming.length > 0
-                                ? <div className='w-full p-4 flex justify-center items-center gap-12'>
+                        <div className='h-[400px] overflow-scroll overflow-x-hidden mt-16 rounded-lg bg-black opacity-80 border'>
+                            <h1 className='text-3xl md:text-5xl text-center border-b font-bold'>Where To Watch</h1>
+                            {streaming
+                                ? <div className='w-full p-2 flex justify-center items-center gap-12'>
                                     {streaming?.map((stream) => stream.provider_name).includes('Netflix')
                                         ? <div className='cursor-pointer'><SiNetflix className='text-red-600' size={50} /> Netflix</div>
                                         : <div className='text-gray-500 opacity-80'><SiNetflix className='text-gray-500 opacity-80' size={50} /> Netflix</div>}
                                     {streaming?.map((stream) => stream.provider_name).includes('Hulu')
                                         ? <div><SiHulu className='text-green-500' size={100} /></div>
                                         : <div><SiHulu className='text-gray-500 opacity-80' size={100} /></div>}
-                                    {streaming?.map((stream) => stream.provider).includes('Disney Plus')
+                                    {streaming?.map((stream) => stream.provider_name).includes('Disney Plus')
                                         ? <div className='text-3xl text-blue-400'>Disney+</div>
                                         : <div className='text-3xl text-gray-500 opacity-80'>Disney+</div>}
                                 </div>
                                 : <div className='p-4'>...Could Not Find a Streaming Service for this Product</div>
                             }
                             <div className='flex flex-col p-2'>
-                                <h1 className='text-3xl md:text-5xl text-center font-bold border-b-2'>Providers</h1>
-                                <div className='flex justify-between px-4 '>
+                                <div className='flex justify-between px-4'>
                                     <div className='h-full flex flex-col'>
                                         <h1 className='font-bold text-xl border-b-2'>Stream</h1>
-                                        <ul>
+                                        <ul className='text-sm md:text-base'>
                                             {
                                                 streaming
                                                     ?
                                                     streaming?.map((stream, key) => {
                                                         return (
-                                                            <li key={key}>{stream.provider_name}</li>
+                                                            <li className='xs:py-1 py-0' key={key}>{stream.provider_name}</li>
                                                         )
                                                     })
                                                     : <div>none</div>
