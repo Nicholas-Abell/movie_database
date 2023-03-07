@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle, AiOutlinePlus, AiOutlineCheck } from 'react-icons/ai';
 import { SelectedMovie } from '../context/SelectedMovieContext';
+import { OverLayContext } from '../App';
 
 const ButtonPalette = ({ movie, setMovieBool = false, showInfoBool = true, showAddToListBool = true, size = 25 }) => {
     const navigate = useNavigate();
@@ -15,16 +16,19 @@ const ButtonPalette = ({ movie, setMovieBool = false, showInfoBool = true, showA
     const [like, setLike] = useState(false);
     const [saved, setSaved] = useState(false);
     const { setSelectedMovie } = SelectedMovie();
+    const { setIsOverlayOpen } = useContext(OverLayContext);
 
     const showMovieInfo = (movie) => {
         const selectedMovie = setMovieBool ? setSelectedMovie(movie) : null;
         document.body.style.overflow = 'scroll';
+        setIsOverlayOpen(false);
         navigate('/movieinfo');
     }
 
     const showMovieTrailer = (movie) => {
         const selectedMovie = setMovieBool ? setSelectedMovie(movie) : null;
         document.body.style.overflow = 'scroll';
+        setIsOverlayOpen(false);
         navigate('/trailer');
     }
 

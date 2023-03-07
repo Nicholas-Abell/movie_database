@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { OverLayContext } from '../pages/Home';
+import { OverLayContext } from '../App';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { SelectedMovie } from '../context/SelectedMovieContext';
 import ButtonPalette from './ButtonPalette';

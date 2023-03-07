@@ -18,16 +18,6 @@ const MovieInfo = () => {
 
     const url = `https://api.themoviedb.org/3/movie/${selectedMovie?.id}/watch/providers?api_key=${tmdbKey}`
 
-
-    const options = {
-        method: 'GET',
-        url: `https://where-can-i-watch1.p.rapidapi.com/search/us/${selectedMovie?.title}`,
-        headers: {
-            'X-RapidAPI-Key': streamKey,
-            'X-RapidAPI-Host': streamDomain
-        }
-    };
-
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -47,24 +37,6 @@ const MovieInfo = () => {
 
     return (
         <>
-            {/* <div className='w-full h-screen -z-10'>
-                <div className='w-full h-full py-4 absolute'>
-                    <div className='absolute w-full h-full bg-gradient-to-b from-black'></div>
-                    <img
-                        className='w-full h-full object-cover object-top'
-                        src={
-                            !isSmallScreen
-                                ? selectedMovie?.backdrop_path !== undefined
-                                    ? `https://image.tmdb.org/t/p/original/${selectedMovie?.backdrop_path}`
-                                    : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
-                                : selectedMovie?.poster_path !== undefined
-                                    ? `https://image.tmdb.org/t/p/original/${selectedMovie?.poster_path}`
-                                    : `https://image.tmdb.org/t/p/original/${selectedMovie?.img}`
-                        }
-                        alt={'movie_main'}
-                    />
-                </div>
-            </div> */}
             <div className='relatvie z-10 w-full'>
                 <div className='absolute z-10 w-full h-full bg-gradient-to-b from-black opacity-80'></div>
                 <div className='absolute z-10 w-full h-full bg-gradient-to-t from-black opacity-95'></div>

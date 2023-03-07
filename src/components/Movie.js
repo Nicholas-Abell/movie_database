@@ -3,7 +3,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
-import { OverLayContext } from '../pages/Home';
+import { OverLayContext } from '../App';
 import { SelectedMovie } from '../context/SelectedMovieContext';
 import { ScreenSizeContext } from '../context/ScreenSizeContext';
 
@@ -50,7 +50,7 @@ const Movie = ({ movie }) => {
             <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100'>
                 <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full'>{movie?.title}</p>
                 <p onClick={saveShow}>
-                    {!isSmallScreen ? (like ? <FaHeart className='absolute top-4 left-4 text-gray-300 z-20 lg:block' /> : <FaRegHeart className='absolute top-4 left-4 text-gray-300 z-20 hidden lg:block' />) : null}
+                    {like ? <FaHeart className='absolute top-4 left-4 text-gray-300 z-20 lg:block' /> : <FaRegHeart className='absolute top-4 left-4 text-gray-300 z-20 hidden lg:block' />}
                 </p>
             </div>
         </div>

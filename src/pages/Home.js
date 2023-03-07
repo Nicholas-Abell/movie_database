@@ -3,13 +3,11 @@ import Main from '../components/Main';
 import Row from '../components/Row';
 import { request } from '../Request';
 import InfoOverlay from '../components/InfoOverlay';
-export const OverLayContext = createContext();
+
 
 const Home = () => {
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   return (
-    <OverLayContext.Provider value={{ isOverlayOpen, setIsOverlayOpen }}>
       <div>
         <Main />
         <Row title='Trending' url={request.requestPopular} rowId={1} />
@@ -19,7 +17,6 @@ const Home = () => {
         <Row title='Animated' url={request.requestAction} rowId={5} />
         <InfoOverlay />
       </div>
-    </OverLayContext.Provider>
   )
 }
 
