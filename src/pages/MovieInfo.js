@@ -6,8 +6,6 @@ import axios from 'axios';
 import ButtonPalette from '../components/ButtonPalette';
 
 const tmdbKey = process.env.REACT_APP_MOVIE_DATABASE_API;
-const streamKey = process.env.REACT_APP_STREAMING_SEARCH_API;
-const streamDomain = process.env.REACT_APP_STREAMING_AUTH_DOMAIN;
 
 const MovieInfo = () => {
     const { selectedMovie } = SelectedMovie();
