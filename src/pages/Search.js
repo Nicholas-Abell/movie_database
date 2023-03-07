@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import InfoOverlay from '../components/InfoOverlay';
 import Row from '../components/Row';
+import Found from '../components/Found'
 
 const Search = () => {
     const [search, setSearch] = useState('');
     const [selectedGenre, setSelectedGenre] = useState('');
+    const [genreId, setGenreId] = useState();
     const key = process.env.REACT_APP_MOVIE_DATABASE_API;
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&page=1&include_adult=false&query=${search}`;
 
@@ -16,8 +18,8 @@ const Search = () => {
             : console.log('not working');
     }
 
-    const searchGenre = () => {
-        setSelectedGenre(true);
+    const searchGenre = (genre, genreId) => {
+        setSelectedGenre(genre);
     }
 
     return (
@@ -35,60 +37,52 @@ const Search = () => {
                     <h1 className='px-8 text-gray-400'>Search by Genre</h1>
                     <ul>
                         <li>
-                            <div onClick={() => setSelectedGenre('Action')} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Action', 16)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Action</h1>
                             </div>
                         </li>
-                        <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
-                                <h1 className='text-3xl'>Anime</h1>
-                            </div>
-                        </li>
-
-                        <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                        <div onClick={() => searchGenre('Comedy', 35)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                             <h1 className='text-3xl'>Comedy</h1>
                         </div>
                         <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Crime', 80)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Crime</h1>
                             </div>
                         </li>
                         <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Documentary', 99)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Documentaries</h1>
                             </div>
                         </li>
                         <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Drama', 18)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Drama</h1>
                             </div>
                         </li>
                         <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Fantasy', 14)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Fantasy</h1>
                             </div>
                         </li>
                         <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Horror', 27)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Horror</h1>
                             </div>
                         </li>
                         <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Romance', 10749)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Romance</h1>
                             </div>
                         </li>
                         <li>
-                            <div className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Sci-Fi', 878)} className='border border-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Sci-Fi</h1>
                             </div>
                         </li>
                     </ul>
                 </div>)
                 : (
-                    <div className='border w-full'>
-                        <h1 className='text-3xl font-bold text-center'>{selectedGenre}</h1>
-                    </div>
+                    <Found url='' selectedGenre={selectedGenre} setSelectedGenre={setSelectedGenre} genreId={genreId} />
                 )}
         </div>
     )
