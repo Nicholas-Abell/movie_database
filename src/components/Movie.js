@@ -44,7 +44,7 @@ const Movie = ({ movie }) => {
     return (
         <div onClick={() => showMovieInfo(movie)} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
             <img
-                className='w-full h-auto block'
+                className='w-full h-auto block rounded'
                 src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt={movie?.title}
             />
             <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100'>
