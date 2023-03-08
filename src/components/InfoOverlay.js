@@ -3,12 +3,12 @@ import { OverLayContext } from '../App';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { SelectedMovie } from '../context/SelectedMovieContext';
 import ButtonPalette from './ButtonPalette';
-import { ScreenSizeContext } from '../context/ScreenSizeContext';
+// import { ScreenSizeContext } from '../context/ScreenSizeContext';
 
 const InfoOverlay = () => {
     const { selectedMovie } = SelectedMovie();
     const { isOverlayOpen, setIsOverlayOpen } = useContext(OverLayContext);
-    const isSmallScreen = useContext(ScreenSizeContext);
+    // const isSmallScreen = useContext(ScreenSizeContext);
 
     const truncateString = (str, num) => {
         if (str?.length > num) {
@@ -44,10 +44,9 @@ const InfoOverlay = () => {
                                 <p className='text-sm'>Released: {selectedMovie?.release_date}</p>
                             </div>
                             <p className='text-sm md:text-lg my-5'>{truncateString(selectedMovie?.overview, 200)}</p>
-                            {!isSmallScreen ? <ButtonPalette movie={selectedMovie} /> : null}
+                            <ButtonPalette movie={selectedMovie} />
                         </div>
                     </div>
-                    {isSmallScreen ? <ButtonPalette movie={selectedMovie} /> : null}
                 </div>
             </div>
         </div>
