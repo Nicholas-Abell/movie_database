@@ -38,13 +38,20 @@ const Search = () => {
                     <h1 className='px-8 text-gray-400'>Search by Genre</h1>
                     <ul>
                         <li>
-                            <div onClick={() => searchGenre('Action', 16)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                            <div onClick={() => searchGenre('Action', 28)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Action</h1>
                             </div>
                         </li>
-                        <div onClick={() => searchGenre('Comedy', 35)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
-                            <h1 className='text-3xl'>Comedy</h1>
-                        </div>
+                        <li>
+                            <div onClick={() => searchGenre('Animation', 16)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                                <h1 className='text-3xl'>Comedy</h1>
+                            </div>
+                        </li>
+                        <li>
+                            <div onClick={() => searchGenre('Comedy', 35)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
+                                <h1 className='text-3xl'>Comedy</h1>
+                            </div>
+                        </li>
                         <li>
                             <div onClick={() => searchGenre('Crime', 80)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
                                 <h1 className='text-3xl'>Crime</h1>
