@@ -27,7 +27,7 @@ const Login = () => {
             <div className='w-full h-screen'>
                 <img src={backgroundImg} className='hidden sm:block absolute w-full object-cover'></img>
                 <div className='absolute bg-gradient-to-b from-black top-0 w-full h-screen'></div>
-                <div className='fixed w-full px-4 py-24 z-50'>
+                <div className='fixed w-full px-4 py-24 z-10'>
                     <div className='max-w-[450px] h-[600px] mx-auto bg-black/75'>
                         <div className='max-w-[320px] mx-auto py-16'>
                             <h1 className='text-3xl font-bold'>Login</h1>

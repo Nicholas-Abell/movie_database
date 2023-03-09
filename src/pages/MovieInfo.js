@@ -17,10 +17,6 @@ const MovieInfo = () => {
     const url = `https://api.themoviedb.org/3/movie/${selectedMovie?.id}/watch/providers?api_key=${tmdbKey}`
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-
-    useEffect(() => {
         axios.get(url)
             .then((res) => {
                 console.log(res.data.results.US);
@@ -35,7 +31,7 @@ const MovieInfo = () => {
 
     return (
         <>
-            <div className='relatvie z-10 w-full'>
+            <div className='relative z-10 w-full'>
                 <div className='absolute z-10 w-full h-full bg-gradient-to-b from-black opacity-80'></div>
                 <div className='absolute z-10 w-full h-full bg-gradient-to-t from-black opacity-95'></div>
                 <img
@@ -58,7 +54,7 @@ const MovieInfo = () => {
                         <p className='text-gray-400 text-sm'>Released: {selectedMovie?.release_date}</p>
                         <p className='w-full lg:max-w-[70%] text-gray-200:'>{selectedMovie?.overview}</p>
                     </div>
-                    <div className='mt-24 rounded-lg bg-black opacity-80 border overflow-x-hidden'>
+                    <div className='mt-24 rounded-lg bg-black opacity-80 border'>
                         <h1 className='text-3xl md:text-5xl text-center border-b font-bold py-4'>Where To Watch</h1>
                         {streaming
                             ? <div className='w-full p-2 sm:p-5 flex justify-center items-center gap-4 sm:gap-6 md:gap-12'>

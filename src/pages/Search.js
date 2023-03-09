@@ -34,7 +34,7 @@ const Search = () => {
             <Row url={url} />
             <InfoOverlay />
             {!selectedGenre
-                ? (<div className=' h-full'>
+                ? (<div className=' h-full mt-32'>
                     <h1 className='px-8 text-gray-400'>Search by Genre</h1>
                     <ul>
                         <li>
