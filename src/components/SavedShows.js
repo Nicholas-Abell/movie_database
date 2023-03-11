@@ -46,7 +46,7 @@ const SavedShows = () => {
                                             <p className='white-space-normal font-bold h-full text-xs md:text-lg lg:text-xl'>{movie?.title}</p>
                                             <p onClick={() => deleteMovie(movie.id)} className='absolute top-4 left-4 hover:bg-slate-500'><AiOutlineClose /></p>
                                             <div className='flex justify-center gap-6 items-center absolute bottom-5 left-0 right-0 w-full'>
-                                                <ButtonPalette movie={movie} showAddToListBool={false} />
+                                                <ButtonPalette setMovieBool={true} movie={movie} showAddToListBool={false} />
                                             </div>
                                         </div>
                                     </div>)
