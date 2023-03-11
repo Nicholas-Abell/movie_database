@@ -44,7 +44,7 @@ const Search = () => {
                         </li>
                         <li>
                             <div onClick={() => searchGenre('Animation', 16)} className='border border-t-gray-400 p-8 hover:bg-slate-600 cursor-pointer'>
-                                <h1 className='text-3xl'>Comedy</h1>
+                                <h1 className='text-3xl'>Animation</h1>
                             </div>
                         </li>
                         <li>
