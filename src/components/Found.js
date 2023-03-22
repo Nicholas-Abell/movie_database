@@ -17,11 +17,11 @@ const Found = ({ selectedGenre, setSelectedGenre, genreId }) => {
                 <AiOutlineClose onClick={() => setSelectedGenre('')} className='text-white absolute left-4 top-2 hover:text-gray-500 cursor-pointer' />
                 <h1 className='text-3xl font-bold text-center'>{selectedGenre}</h1>
                 <Row title='Popular' url={popular} rowId={1} />
-                <Row title='Top Rated' url={topRated} />
-                <Row title='UpComing' url={upComing} />
+                <Row title='Top Rated' url={topRated} rowId={2} />
+                <Row title='UpComing' url={upComing} rowId={3} />
             </div>
         </>
     )
 }
 
-export default Found
+export default Found;
