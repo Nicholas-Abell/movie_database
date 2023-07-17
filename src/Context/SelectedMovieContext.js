@@ -1,17 +1,17 @@
 import React, { useState, createContext, useContext } from "react";
 
-const SelectedMovieContext = createContext();
+const SelectedMovieContext = createContext(null);
 
 export function SelectedMovieContextProvider({ children }) {
-    const [selectedMovie, setSelectedMovie] = useState();
+  const [selectedMovie, setSelectedMovie] = useState();
 
-    return (
-        <SelectedMovieContext.Provider value={{ selectedMovie, setSelectedMovie }}>
-            {children}
-        </SelectedMovieContext.Provider>
-    )
+  return (
+    <SelectedMovieContext.Provider value={{ selectedMovie, setSelectedMovie }}>
+      {children}
+    </SelectedMovieContext.Provider>
+  );
 }
 
 export function SelectedMovie() {
-    return useContext(SelectedMovieContext);
+  return useContext(SelectedMovieContext);
 }
