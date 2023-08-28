@@ -26,4 +26,4 @@ This project is powered by the dynamic duo of modern tech:
 
 So whether you're a cinephile scouting new releases or just looking to unwind with a cinematic classic, the Movie Database has you covered. Explore, discover, and embark on a cinematic journey like never before.
 
-Ready to dive in? Visit us at [Your Website Link] and let the movie magic unfold!
+Ready to dive in? Visit us at https://movie-database-4bf43.web.app/ and let the movie magic unfold!
